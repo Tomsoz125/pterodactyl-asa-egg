@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  asaserver:
+    build: .
+    image: acekorneya/asa_server:latest
+    container_name: asa_Server
+    restart: unless-stopped
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - BATTLEEYE=${BATTLE_EYE}
+      - MAP_NAME=${SERVER_MAP}
+      - SESSION_NAME=${SESSION_NAME}
+      - SERVER_ADMIN_PASSWORD=${ARK_ADMIN_PASSWORD}
+      - ASA_PORT={{server.build.default.port}}
+      - QUERY_PORT=${QUERY_PORT}
+      - MAX_PLAYERS=5
+      - CLUSTER_ID=${CLUSTER_ID}
+    ports:
+      - "25588:25588/tcp"
+      - "25588:25588/udp"
+      - "${QUERY_PORT}:${QUERY_PORT}/tcp"
+      - "${QUERY_PORT}:${QUERY_PORT}/udp"
+    volumes:
+      - "./ASA:/usr/games/.wine/drive_c/POK/Steam/steamapps/common/ARK Survival Ascended Dedicated Se>      
+	  - "./ARK Survival Ascended Dedicated Server:/usr/games/.wine/drive_c/POK/Steam/steamapps/common>      
+	  - "./Cluster:/usr/games/.wine/drive_c/POK/Steam/steamapps/common/ShooterGame"
+    memswap_limit: 16G
+    mem_limit: 12G
